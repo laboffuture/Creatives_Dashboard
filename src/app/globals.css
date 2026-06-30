@@ -5,22 +5,127 @@
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  --font-headline-lg: Inter, sans-serif;
+  --font-headline-md: Inter, sans-serif;
+  --font-section-header: Inter, sans-serif;
+  --font-body-md: Inter, sans-serif;
+  --font-data-tabular: Inter, sans-serif;
+  --font-label-sm: Inter, sans-serif;
+
+  --color-surface-bright: #f7fafc;
+  --color-surface-tint: #4e5e84;
+  --color-on-secondary-fixed: #00201c;
+  --color-on-background: #181c1e;
+  --color-on-tertiary: #ffffff;
+  --color-outline: #75777f;
+  --color-on-tertiary-container: #ff547f;
+  --color-on-primary-container: #8393bc;
+  --color-on-surface: #181c1e;
+  --color-tertiary-fixed: #ffd9de;
+  --color-on-secondary-fixed-variant: #005048;
+  --color-on-error-container: #93000a;
+  --color-tertiary-fixed-dim: #ffb2be;
+  --color-tertiary: #380011;
+  --color-on-primary-fixed: #081a3d;
+  --color-primary-fixed-dim: #b6c6f1;
+  --color-background: #f7fafc;
+  --color-secondary-fixed-dim: #70d8c8;
+  --color-primary-fixed: #d9e2ff;
+  --color-surface-container-low: #f1f4f6;
+  --color-inverse-on-surface: #eef1f3;
+  --color-primary: #041638;
+  --color-outline-variant: #c5c6cf;
+  --color-on-tertiary-fixed: #400014;
+  --color-surface-container-highest: #e0e3e5;
+  --color-on-primary-fixed-variant: #37466b;
+  --color-error-container: #ffdad6;
+  --color-on-surface-variant: #45464e;
+  --color-surface: #f7fafc;
+  --color-surface-container-high: #e5e9eb;
+  --color-error: #ba1a1a;
+  --color-inverse-primary: #b6c6f1;
+  --color-on-primary: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-tertiary-container: #5e0022;
+  --color-surface-variant: #e0e3e5;
+  --color-inverse-surface: #2d3133;
+  --color-on-error: #ffffff;
+  --color-secondary-container: #8df5e4;
+  --color-secondary: #006b5f;
+  --color-secondary-fixed: #8df5e4;
+  --color-on-secondary-container: #007165;
+  --color-surface-dim: #d7dadc;
+  --color-on-tertiary-fixed-variant: #900038;
+  --color-surface-container: #ebeef0;
+  --color-primary-container: #1b2b4e;
+
+  --spacing-container-margin: 24px;
+  --spacing-component-gap: 20px;
+  --spacing-sidebar-width: 260px;
+  --spacing-table-cell-padding-y: 10px;
+  --spacing-gutter: 16px;
+  --spacing-table-cell-padding-x: 12px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+}
+.report-table th {
+    background-color: #041638;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    padding: 4px 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.report-table td {
+    border: 1px solid #45464e;
+    padding: 4px 8px;
+    font-size: 12px;
+    text-align: center;
+}
+.team-graphics { background-color: #ff547f; color: white; }
+.team-video { background-color: #006b5f; color: white; }
+.team-3d { background-color: #F59E0B; color: white; }
+.bg-navy { background-color: #041638; }
+.card-container {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+  body {
+    background-color: white !important;
+  }
+  main {
+    width: 1200px !important;
+    max-width: 1200px !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    zoom: 0.62;
+  }
+  /* Prevent page breaks inside important containers */
+  .rounded-xl, .rounded-b-xl, .rounded-3xl, table, tr, th, td {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
 }

@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# local dev artifacts (not part of the app)
+/temp_*.html
+/test-drive.js
+/*.csv
