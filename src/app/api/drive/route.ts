@@ -32,17 +32,17 @@ export async function GET() {
     const data = await response.json();
 
     // Ensure we only show Excel backup files, ignoring images/PDFs that might accidentally be in the folder
-    const excelFiles = (data.files || []).filter((f: any) =>
+    const excelFiles = (data.files || []).filter((f: { name: string; mimeType: string }) =>
       f.name.toLowerCase().endsWith('.xlsx') ||
       f.mimeType.includes('spreadsheet') ||
       f.mimeType.includes('excel')
     );
 
     return NextResponse.json({ files: excelFiles });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching drive files from Apps Script:", error);
     return NextResponse.json(
-      { error: "Failed to fetch files from Google Drive", details: error.message },
+      { error: "Failed to fetch files from Google Drive", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }

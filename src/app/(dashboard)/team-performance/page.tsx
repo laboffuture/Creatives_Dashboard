@@ -1,5 +1,6 @@
 import { fetchSheetData, SHEETS } from "@/lib/google-sheets";
 import { TeamPerformanceContent } from "@/components/dashboard/TeamPerformanceContent";
+import { StatusNotice } from "@/components/StatusNotice";
 
 export const revalidate = 60;
 
@@ -44,9 +45,11 @@ export default async function TeamPerformancePage() {
 
   if (!data || data.length < 15) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-corp-100/60">
-        <p>No data available or error fetching from Google Sheets.</p>
-      </div>
+      <StatusNotice
+        variant="error"
+        title="Couldn't load team performance"
+        message="The team performance sheet could not be loaded or is incomplete. Please check the connection and refresh."
+      />
     );
   }
 

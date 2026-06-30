@@ -46,7 +46,7 @@ export function parseReportData(data: string[][]): ParsedReportData {
     cell.includes("Tasks This") || 
     cell.includes("TOTAL TASKS")
   )));
-  const kpiRow = kpiHeaderIdx !== -1 ? data[kpiHeaderIdx + 1] : [];
+  const kpiRow = (kpiHeaderIdx !== -1 ? data[kpiHeaderIdx + 1] : []) || [];
   const kOffset = (kpiRow[0] === "" || !kpiRow[0]) && kpiRow[1] ? 1 : 0;
   
   const kpis = {

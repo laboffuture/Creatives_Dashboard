@@ -18,10 +18,12 @@ function formatBytes(bytes: number, decimals = 2) {
 
 // Format date helper
 function formatDate(dateString: string) {
+  const d = new Date(dateString);
+  if (isNaN(d.getTime())) return 'Unknown';
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric', month: 'short', day: 'numeric',
     hour: '2-digit', minute: '2-digit'
-  }).format(new Date(dateString));
+  }).format(d);
 }
 
 interface DriveFile {
@@ -52,9 +54,14 @@ export default function BackupPage() {
           throw new Error(data.error || 'Failed to fetch backup files');
         }
         
-        setFiles(data.files || []);
-      } catch (err: any) {
-        setError(err.message);
+        // Sort newest-first so 'Latest Backup' and the table order are correct
+        // regardless of the order the Apps Script returns files in.
+        const sorted = ((data.files || []) as DriveFile[]).slice().sort(
+          (a, b) => (new Date(b.createdTime).getTime() || 0) - (new Date(a.createdTime).getTime() || 0)
+        );
+        setFiles(sorted);
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : "Failed to load backups");
       } finally {
         setLoading(false);
       }
@@ -83,8 +90,8 @@ export default function BackupPage() {
       setTimeout(() => {
         document.getElementById('historical-report-view')?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
-    } catch (err: any) {
-      alert("Error loading historical data: " + err.message);
+    } catch (err: unknown) {
+      alert("Error loading historical data: " + (err instanceof Error ? err.message : String(err)));
     } finally {
       setLoadingData(false);
     }

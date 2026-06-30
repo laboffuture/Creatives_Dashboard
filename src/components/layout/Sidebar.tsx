@@ -36,7 +36,7 @@ export function Sidebar() {
                   href={item.href}
                   className={isActive
                     ? "bg-secondary/20 text-secondary-fixed-dim border-l-4 border-secondary-fixed-dim flex items-center py-3 px-4 transition-all duration-200"
-                    : "text-on-primary/60 border-l-4 border-transparent flex items-center py-3 px-4 hover:bg-primary-fixed-variant/10 transition-all duration-200"}
+                    : "text-on-primary/60 border-l-4 border-transparent flex items-center py-3 px-4 hover:bg-on-primary/10 transition-all duration-200"}
                 >
                   <span className="material-symbols-outlined mr-3">{item.icon}</span>
                   <span className="text-label-sm font-label-sm">{item.name}</span>

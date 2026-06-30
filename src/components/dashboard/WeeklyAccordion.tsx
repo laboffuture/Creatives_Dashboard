@@ -26,7 +26,7 @@ export function WeeklyAccordion({ weeksData }: WeeklyAccordionProps) {
       {/* Global Page Header */}
       <div className="bg-navy text-white px-6 py-3 flex items-center justify-between border-b border-white/20 rounded-t-xl">
         <div className="flex items-center gap-3">
-          <span className="material-symbols-outlined text-xl">calendar_month</span>
+          <span className="material-symbols-outlined text-xl" aria-hidden="true">calendar_month</span>
           <h2 className="text-lg font-bold tracking-tight uppercase">CREATIVES • WEEKLY VIEW</h2>
         </div>
         <DownloadPdfButton />
@@ -49,6 +49,8 @@ export function WeeklyAccordion({ weeksData }: WeeklyAccordionProps) {
               {/* Accordion Header */}
               <button
                 onClick={() => toggleWeek(idx)}
+                aria-expanded={isOpen}
+                aria-controls={`week-panel-${idx}`}
                 className="w-full flex items-center justify-between p-4 bg-surface-container-low hover:bg-surface-container-highest transition-colors border-b border-outline-variant/30"
               >
                 <div className="flex items-center gap-4">
@@ -89,7 +91,7 @@ export function WeeklyAccordion({ weeksData }: WeeklyAccordionProps) {
 
                     <div className="flex items-center gap-2">
                       <span className="text-outline uppercase text-[10px] font-bold">On-Time Rate:</span>
-                      <span className="font-bold text-corp-300 bg-corp-300/10 px-2 py-0.5 rounded-full">{data.kpis.onTimeRate}</span>
+                      <span className="font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">{data.kpis.onTimeRate}</span>
                     </div>
 
                   </div>
@@ -104,6 +106,7 @@ export function WeeklyAccordion({ weeksData }: WeeklyAccordionProps) {
               <AnimatePresence>
                 {isOpen && (
                   <motion.div
+                    id={`week-panel-${idx}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

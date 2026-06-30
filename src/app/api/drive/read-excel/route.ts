@@ -57,16 +57,16 @@ export async function POST(request: Request) {
     const worksheet = workbook.Sheets[targetSheetName];
 
     // Convert to 2D array of strings
-    const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: "" });
+    const data = XLSX.utils.sheet_to_json<unknown[]>(worksheet, { header: 1, defval: "" });
 
     // Stringify all cells just to be safe
     const stringifiedData = data.map(row => row.map(cell => String(cell)));
 
     return NextResponse.json({ data: stringifiedData });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error reading excel file:", error);
     return NextResponse.json(
-      { error: "Failed to read Excel file", details: error.message },
+      { error: "Failed to read Excel file", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
